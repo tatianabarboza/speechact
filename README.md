@@ -25,7 +25,7 @@ Netbeans IDE  8.2
  
 
 Procedure for application:
-1) Cloning application for PC c:\ (Windows), \home (Linux), etc.;
+1) Clone this application for PC c:\ (Windows), \home (Linux), etc.;
 2) This application was built of Maven;
 3) Verify if the file paths is according to where you cloned this application; 
 4) There is a file with examples of events log. (speechact/arquivos/LogMessage.csv);
