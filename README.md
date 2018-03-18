@@ -1,6 +1,5 @@
 # speechact
 Finding Speech Act in Events Logs
-Busca de atos de fala em log de eventos
 
 Propose:
 Using Natural Language Process - Stanford Java, Speech Act Theory and Linguistic Perspective, it was possible extract kinds of speech act are considered making decisions. This application was build using a dataset of a company which provides services of infraestructure. This dataset has exchange mensages among clients and employees.
