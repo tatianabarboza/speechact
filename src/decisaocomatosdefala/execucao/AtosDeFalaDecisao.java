@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TimeZone;
+
 import opennlp.tools.cmdline.postag.POSModelLoader;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
@@ -70,7 +71,7 @@ public class AtosDeFalaDecisao {
     }
 
     public static void main(String args[]) throws IOException, ParseException {
-        execucaoDoArquivo("C:\\SpeechAct\\arquivos\\LogMessage.csv");
+        execucaoDoArquivo("/home/tatiana/speechact/arquivos/LogMessage.csv");
     }
 
     public static Date converterStringParaDate(String data) throws ParseException {
@@ -204,7 +205,7 @@ public class AtosDeFalaDecisao {
 
             }
         }
-        FileWriter writer = new FileWriter("C:\\SpeechAct\\arquivos\\resultadoLog.csv");
+        FileWriter writer = new FileWriter("/home/tatiana/speechact/arquivos/resultadoLog.csv");
 
         System.out.println("PONTOS DE DECISÃO");
         System.out.println("==========================================================================");
@@ -566,7 +567,7 @@ public class AtosDeFalaDecisao {
     }
 
     public static String convertendoParaInfinitivo(String verb) {
-        System.setProperty("wordnet.database.dir", "C:\\SpeechAct\\test\\dict\\");
+        System.setProperty("wordnet.database.dir", "/home/tatiana/speechact/test/dict/");
         WordNetDatabase database = WordNetDatabase.getFileInstance();
         Morphology id = Morphology.getInstance();
         String[] arr = id.getBaseFormCandidates(verb, SynsetType.VERB);
@@ -675,7 +676,7 @@ public class AtosDeFalaDecisao {
     }
 
     public static Boolean atoDeFalaInformative(String mensagem, String[] informatives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -773,7 +774,7 @@ public class AtosDeFalaDecisao {
 //i. the desire that H do A, and
 //ii. the intention that H do A because (at least partly) of S's desire.    
     public static Boolean atoDeFalaRequestive(String mensagem, String[] requestives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -859,7 +860,7 @@ i. the belief that P, and
 ii. the intention that H believe that P.
      */
     public static Boolean atoDeFalaAssertive(String mensagem, String[] assertives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -942,7 +943,7 @@ i. the belief that it will be the case that P, and
 ii. the intention that H believe that it will be the case that P.
      */
     public static Boolean atoDeFalaPredictive(String mensagem, String[] predictives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1043,7 +1044,7 @@ i. the belief that it was the case that P, and
 ii. the intention that H believe that it was the case that P.
      */
     public static Boolean atoDeFalaRetrodictive(String mensagem, String[] retrodictives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1147,7 +1148,7 @@ i. the belief that 0 is F, and
 ii. the intention that H believe that 0 is F.
      */
     public static Boolean atoDeFalaDescriptive(String mensagem, String[] descriptive) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1271,7 +1272,7 @@ i. the belief that F applies to 0, and
 ii. the intention that H believe that F applies to o.
      */
     public static Boolean atoDeFalaAscriptives(String mensagem, String[] ascriptives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1394,7 +1395,7 @@ i. the belief that P, based on some truth-seeking procedure, and
 ii. the intention that H believe that P because S has support for P.
      */
     public static Boolean atoDeFalaConfirmative(String mensagem, String[] confirmatives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1480,7 +1481,7 @@ to what he previously believed or avowed, and
 ii. the intention that H believe that P.
      */
     public static Boolean atoDeFalaConcessive(String mensagem, String[] concessives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1584,7 +1585,7 @@ indicated he believed, and
 ii. the intention that H not believe that P.
      */
     public static Boolean atoDeFalaRetractive(String mensagem, String[] requestives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1673,7 +1674,7 @@ ii. the intention (perhaps already fulfilled) that H believe that P.
 
      */
     public static Boolean atoDeFalaAssentive(String mensagem, String[] assentives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1759,7 +1760,7 @@ otherwise under discussion), and
 ii. the intention that H disbelieve that P.
      */
     public static Boolean atoDeFalaDissentive(String mensagem, String[] dissentives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1862,7 +1863,7 @@ was claimed by H (or was otherwise under discussion), and
 ii. the intention that H believe that there is reason not to believe that P.
      */
     public static Boolean atoDeFalaDisputative(String mensagem, String[] disputatives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -1964,7 +1965,7 @@ i. the belief that P, which H has inquired about, and
 ii. the intention that H believe that P.
      */
     public static Boolean atoDeFalaResponsives(String mensagem, String[] responsives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2051,7 +2052,7 @@ ii. the intention that H believe that there is reason, but not sufficient
 reason, to believe that P.
      */
     public static Boolean atoDeFalaSuggestives(String mensagem, String[] suggestives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2155,7 +2156,7 @@ ii. the intention that H believe that it is worth considering the consequences
 of P.
      */
     public static Boolean atoDeFalaSuppositive(String mensagem, String[] suppositives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2239,7 +2240,7 @@ i. the desire that H tell S whether or not P, and
 ii. the intention that H tell S whether or not P because of S's desire.
      */
     public static Boolean atoDeFalaQuestions(String mensagem, String[] questions) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2343,7 +2344,7 @@ sufficient reason for H to A, and
 ii. the intention that H do A because of S's utterance.
      */
     public static Boolean atoDeFalaRequirements(String mensagem, String[] requirements) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2465,7 +2466,7 @@ sufficient reason for H not to A, and
 ii. the intention that because of S's utterance H not do A.
      */
     public static Boolean atoDeFalaProhibitive(String mensagem, String[] proibitives) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2588,7 +2589,7 @@ H to A, and
 ii. the intention that H believe that S's utterance entitles him to A.
      */
     public static Boolean atoDeFalaPermissive(String mensagem, String[] permissive) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2691,7 +2692,7 @@ i. the belief that there is (sufficient) reason for H to A, and
 ii. the intention thatH take S's belief as (sufficient) reason for him toA.
      */
     public static Boolean atoDeFalaAdvisories(String mensagem, String[] advisories) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2797,7 +2798,7 @@ iii. the intention that H believe that S's utterance obligates S to A and
 that S intends to A.
      */
     public static Boolean atoDeFalaPromisse(String mensagem, String[] promisses) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
@@ -2885,7 +2886,7 @@ that S intends to A.
 //something.
 
     public static Boolean atoDeFalaOffer(String mensagem, String[] offers) {
-        POSModel model = new POSModelLoader().load(new File("C:\\SpeechAct\\lib\\en-pos-maxent.bin"));
+        POSModel model = new POSModelLoader().load(new File("/home/tatiana/speechact/lib/en-pos-maxent.bin"));
         POSTaggerME tagger = new POSTaggerME(model);
         String tokens[] = WhitespaceTokenizer.INSTANCE.tokenize(mensagem);
         String[] tags = tagger.tag(tokens);
