@@ -24,9 +24,10 @@ Netbeans IDE  8.2
 
 Procedure for application:
 1) Clone this application for PC c:\ (Windows), \home (Linux), etc.;
-2) Verify if the file paths is according to where you cloned this application; 
-3) There is a file with examples of events log. (speechact/arquivos/LogMessage.csv).This file was built for you test this application.
-4) The main file is AtosDeFalaDecisao.java. You need execute this application starting from this file. 
+2) Add file jar "opennl-tools-1.8.4.jar" in project libraries. This file is at /speechact/lib. Click in "Build Clear Project"  button;
+3) Verify if the file paths is according to where you cloned this application; 
+4) There is a file with examples of events log. (speechact/arquivos/LogMessage.csv).This file was built for you test this application.
+5) The main file is AtosDeFalaDecisao.java. You need execute this application starting from this file. 
  
 References:
 
