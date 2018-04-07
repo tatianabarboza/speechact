@@ -54,10 +54,9 @@ import edu.smu.tspell.wordnet.impl.file.Morphology;
 public class AtosDeFalaDecisao {
 
     private static String[] defaultStopWords = {"#", "$", "%", "\"", "\'"};
-    private static HashSet stopWords = new HashSet();
-
-    public AtosDeFalaDecisao() {
-        stopWords.addAll(Arrays.asList(defaultStopWords));
+    private static HashSet<String> stopWords = new HashSet<String>();
+    static {
+    		AtosDeFalaDecisao.stopWords.addAll(Arrays.asList(defaultStopWords));
     }
 
     public static String[] removeStopWords(String[] words) {
