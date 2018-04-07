@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import opennlp.tools.tokenize.SimpleTokenizer;
+
 public class StopWords {
 
 	private static String[] defaultStopWords = {"#", "$", "%", "\"", "\'"};
@@ -21,6 +23,17 @@ public class StopWords {
         }
         return (String[]) tokens.toArray(
                 new String[tokens.size()]);
+    }
+    
+    public static String removendoCaracter(String paragraph) {
+        SimpleTokenizer simpleTokenizer = SimpleTokenizer.INSTANCE;
+        String tokens[] = simpleTokenizer.tokenize(paragraph);
+        String list[] = StopWords.removeStopWords(tokens);
+        paragraph = "";
+        for (String word : list) {
+            paragraph += word + " ";
+        }
+        return paragraph;
     }
 
 	

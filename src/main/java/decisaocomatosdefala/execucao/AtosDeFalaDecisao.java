@@ -45,6 +45,7 @@ import decisaocomatosdefala.model.TicketsComMensagens;
 import decisaocomatosdefala.model.Verbo;
 import decisaocomatosdefala.nlp.StopWords;
 import decisaocomatosdefala.util.DateUtil;
+import decisaocomatosdefala.util.TicketsHelper;
 import edu.smu.tspell.wordnet.SynsetType;
 import edu.smu.tspell.wordnet.WordNetDatabase;
 import edu.smu.tspell.wordnet.impl.file.Morphology;
@@ -66,48 +67,6 @@ public class AtosDeFalaDecisao {
         return ticketPonto;
     }
 
-    public static List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
-        BufferedReader br = null;
-        InputStream fstream =  AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
-        DataInputStream in = new DataInputStream(fstream);
-        br = new BufferedReader(new InputStreamReader(in));
-        String linha = br.readLine();
-        String csvDivisor = ";";
-        String[] colunas = linha.split(csvDivisor);
-        TicketsComMensagens ticket = new TicketsComMensagens();
-        ticket.setTicketId((colunas[1]));
-        Mensagem mensagem = new Mensagem();
-        mensagem.setMsgId((colunas[0]));
-        mensagem.setMensagem(removendoCaracter(colunas[2]));
-        List<Mensagem> mensagens = new ArrayList<Mensagem>();
-        mensagens.add(mensagem);
-        List<TicketsComMensagens> tickets = new ArrayList<TicketsComMensagens>();
-        int tam = tickets.size();
-        int i = 0;
-        TicketsComMensagens ticketPonto = null;
-        while ((linha = br.readLine()) != null) {
-            try {
-                colunas = linha.split(csvDivisor);
-                if (!colunas[1].equals(ticket.getTicketId().toString())) {
-                    ticket.setMensagens(mensagens);
-                    tickets.add(ticket);
-                    ticket = new TicketsComMensagens();
-                    ticket.setTicketId((colunas[1]));
-                    mensagens = new ArrayList<Mensagem>();
-                }
-                mensagem = new Mensagem();
-                mensagem.setMsgId((colunas[0]));
-                mensagem.setMensagem(removendoCaracter(colunas[2]));
-                mensagens.add(mensagem);
-            } catch (Exception e) {
-            		System.out.println("Erro ao recuperar tickets do arquivo: " + e.getMessage());
-            }
-        }
-        ticket.setMensagens(mensagens);
-        tickets.add(ticket);
-        return tickets;
-    }
-
 	private static File loadFileFromResource(String caminho) {
 		InputStream fstream = AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
 		try {
@@ -124,7 +83,7 @@ public class AtosDeFalaDecisao {
 
     public static void execucaoDoArquivo(String caminho) throws IOException, FileNotFoundException, ParseException {
         //Leitura do Arquivo
-        List<TicketsComMensagens> tickets = leituraDoArquivoCSV(caminho);
+        List<TicketsComMensagens> tickets = TicketsHelper.leituraDoArquivoCSV(caminho);
         //Limpeza das Mensagens
         List<TicketsComMensagens> ticketLimpos = new ArrayList<TicketsComMensagens>();
         List<Mensagem> mensagens = new ArrayList<Mensagem>();
@@ -137,7 +96,7 @@ public class AtosDeFalaDecisao {
                 for (Mensagem msg : ticket.getMensagens()) {
                     mensagemLimpa = new Mensagem();
                     mensagemLimpa = msg;
-                    mensagemLimpa.setMensagem(removendoCaracter(mensagemLimpa.getMensagem()));
+                    mensagemLimpa.setMensagem(StopWords.removendoCaracter(mensagemLimpa.getMensagem()));
                     mensagens.add(mensagemLimpa);
                 }
                 ticketLimpo.setMensagens(mensagens);
@@ -630,17 +589,17 @@ public class AtosDeFalaDecisao {
             return name;
         }
     }
-
-    public static String removendoCaracter(String paragraph) {
-        SimpleTokenizer simpleTokenizer = SimpleTokenizer.INSTANCE;
-        String tokens[] = simpleTokenizer.tokenize(paragraph);
-        String list[] = StopWords.removeStopWords(tokens);
-        paragraph = "";
-        for (String word : list) {
-            paragraph += word + " ";
-        }
-        return paragraph;
-    }
+//
+//    public static String removendoCaracter(String paragraph) {
+//        SimpleTokenizer simpleTokenizer = SimpleTokenizer.INSTANCE;
+//        String tokens[] = simpleTokenizer.tokenize(paragraph);
+//        String list[] = StopWords.removeStopWords(tokens);
+//        paragraph = "";
+//        for (String word : list) {
+//            paragraph += word + " ";
+//        }
+//        return paragraph;
+//    }
 
     public List<Impressao> leituraDeCsvParaImpressao(String caminho) throws FileNotFoundException, IOException {
         List<Impressao> impressoes = new ArrayList<>();
