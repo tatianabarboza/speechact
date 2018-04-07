@@ -8,11 +8,15 @@ package decisaocomatosdefala.execucao;
 import static opennlp.tools.util.Span.spansToStrings;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +28,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
 
+import opennlp.tools.cmdline.postag.POSModelLoader;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.tokenize.SimpleTokenizer;
+import opennlp.tools.tokenize.WhitespaceTokenizer;
+import opennlp.tools.util.Span;
+import opennlp.tools.util.StringUtil;
+
+import org.apache.commons.io.IOUtils;
+
 import decisaocomatosdefala.model.Impressao;
 import decisaocomatosdefala.model.Mensagem;
 import decisaocomatosdefala.model.Modelo;
@@ -32,13 +46,6 @@ import decisaocomatosdefala.model.Verbo;
 import edu.smu.tspell.wordnet.SynsetType;
 import edu.smu.tspell.wordnet.WordNetDatabase;
 import edu.smu.tspell.wordnet.impl.file.Morphology;
-import opennlp.tools.cmdline.postag.POSModelLoader;
-import opennlp.tools.postag.POSModel;
-import opennlp.tools.postag.POSTaggerME;
-import opennlp.tools.tokenize.SimpleTokenizer;
-import opennlp.tools.tokenize.WhitespaceTokenizer;
-import opennlp.tools.util.Span;
-import opennlp.tools.util.StringUtil;
 
 /**
  *
@@ -64,7 +71,7 @@ public class AtosDeFalaDecisao {
                 new String[tokens.size()]);
     }
 
-    public static void main(String args[]) throws IOException, ParseException {
+    public static void main(String args[]) throws Exception{
         execucaoDoArquivo("arquivos"+  File.separator +   "LogMessage.csv");
     }
 
@@ -86,8 +93,9 @@ public class AtosDeFalaDecisao {
 
     public static List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
         BufferedReader br = null;
-    		File file = loadFileFromResource(caminho);
-        br = new BufferedReader(new FileReader(file));
+        InputStream fstream =  AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
+        DataInputStream in = new DataInputStream(fstream);
+        br = new BufferedReader(new InputStreamReader(in));
         String linha = br.readLine();
         String csvDivisor = ";";
         String[] colunas = linha.split(csvDivisor);
@@ -126,9 +134,17 @@ public class AtosDeFalaDecisao {
     }
 
 	private static File loadFileFromResource(String caminho) {
-		ClassLoader classLoader = AtosDeFalaDecisao.class.getClassLoader();
-		File file = new File(classLoader.getResource(caminho).getFile());
-		return file;
+		InputStream fstream = AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
+		try {
+			File tempFile = File.createTempFile("temp-"+ caminho.split("\\.")[0], caminho.split("\\.")[1]);
+			tempFile.deleteOnExit();
+		    FileOutputStream out = new FileOutputStream(tempFile);
+		    IOUtils.copy(AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho), out);
+		    return tempFile;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
     public static void execucaoDoArquivo(String caminho) throws IOException, FileNotFoundException, ParseException {
