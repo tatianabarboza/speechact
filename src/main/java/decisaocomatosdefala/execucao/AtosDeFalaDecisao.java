@@ -43,6 +43,8 @@ import decisaocomatosdefala.model.Mensagem;
 import decisaocomatosdefala.model.Modelo;
 import decisaocomatosdefala.model.TicketsComMensagens;
 import decisaocomatosdefala.model.Verbo;
+import decisaocomatosdefala.nlp.StopWords;
+import decisaocomatosdefala.util.DateUtil;
 import edu.smu.tspell.wordnet.SynsetType;
 import edu.smu.tspell.wordnet.WordNetDatabase;
 import edu.smu.tspell.wordnet.impl.file.Morphology;
@@ -53,36 +55,10 @@ import edu.smu.tspell.wordnet.impl.file.Morphology;
  */
 public class AtosDeFalaDecisao {
 
-    private static String[] defaultStopWords = {"#", "$", "%", "\"", "\'"};
-    private static HashSet<String> stopWords = new HashSet<String>();
-    static {
-    		AtosDeFalaDecisao.stopWords.addAll(Arrays.asList(defaultStopWords));
-    }
-
-    public static String[] removeStopWords(String[] words) {
-        ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(words));
-        for (int i = 0; i < tokens.size(); i++) {
-            if (stopWords.contains(tokens.get(i))) {
-                tokens.remove(i);
-            }
-        }
-        return (String[]) tokens.toArray(
-                new String[tokens.size()]);
-    }
-
     public static void main(String args[]) throws Exception{
         execucaoDoArquivo("arquivos"+  File.separator +   "LogMessage.csv");
     }
 
-    public static Date converterStringParaDate(String data) throws ParseException {
-        TimeZone tz = TimeZone.getTimeZone("Asia/Calcutta");
-        Calendar cal = Calendar.getInstance(tz);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setCalendar(cal);
-        cal.setTime(sdf.parse(data));
-        Date date = cal.getTime();
-        return date;
-    }
 
     public TicketsComMensagens buscarPontosDeDecisao(TicketsComMensagens ticket) {
         TicketsComMensagens ticketPonto = new TicketsComMensagens();
@@ -658,7 +634,7 @@ public class AtosDeFalaDecisao {
     public static String removendoCaracter(String paragraph) {
         SimpleTokenizer simpleTokenizer = SimpleTokenizer.INSTANCE;
         String tokens[] = simpleTokenizer.tokenize(paragraph);
-        String list[] = removeStopWords(tokens);
+        String list[] = StopWords.removeStopWords(tokens);
         paragraph = "";
         for (String word : list) {
             paragraph += word + " ";
@@ -679,7 +655,7 @@ public class AtosDeFalaDecisao {
                 String parte1Data = colunas[5].replaceAll("\"", "").substring(0, 16);
                 String parte2Data = colunas[5].replaceAll("\"", "").substring(17, 20);
                 String data = parte1Data + ":00.0" + parte2Data;
-                Date dataHora = (converterStringParaDate(data));
+                Date dataHora = (DateUtil.converterStringParaDate(data));
                 impressao = new Impressao(colunas[0].replaceAll("\"", ""), colunas[1].replaceAll("\"", ""), colunas[2].replaceAll("\"", ""), colunas[3].replaceAll("\"", ""), colunas[4].replaceAll("\"", ""), dataHora);
                 impressoes.add(impressao);
             } catch (Exception e) {
