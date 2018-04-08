@@ -11,7 +11,7 @@ import decisaocomatosdefala.util.FileUtil;
 
 /**
  *
- * @author tatia
+ * @author edveloso
  */
 public class Main {
 

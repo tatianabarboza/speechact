@@ -18,13 +18,10 @@ import decisaocomatosdefala.nlp.StopWords;
 
 public class TicketsHelper {
 
-	static String csvDivisor = ";";
+	 private String csvDivisor = ";";
 
-	 public static List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
-	        BufferedReader br = null;
-	        InputStream fstream =  AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
-	        DataInputStream in = new DataInputStream(fstream);
-	        br = new BufferedReader(new InputStreamReader(in));
+	 public List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
+		 	BufferedReader br = getBufferedReaderFrom(caminho);
 	        String linha = br.readLine();
 
 	        String[] colunas = linha.split(csvDivisor);
@@ -60,6 +57,12 @@ public class TicketsHelper {
 	        tickets.add(ticket);
 	        return tickets;
 	    }
+
+	private BufferedReader getBufferedReaderFrom(String caminho) {
+		InputStream fstream =  AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
+		DataInputStream in = new DataInputStream(fstream);
+		return new BufferedReader(new InputStreamReader(in));
+	}
 	
 	 
 }

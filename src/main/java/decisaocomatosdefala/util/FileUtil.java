@@ -36,7 +36,7 @@ public class FileUtil {
 	
 	 public static void execucaoDoArquivo(String caminho) throws IOException, FileNotFoundException, ParseException {
 	        //Leitura do Arquivo
-	        List<TicketsComMensagens> tickets = TicketsHelper.leituraDoArquivoCSV(caminho);
+	        List<TicketsComMensagens> tickets = new TicketsHelper().leituraDoArquivoCSV(caminho);
 	        //Limpeza das Mensagens
 	        List<TicketsComMensagens> ticketLimpos = new ArrayList<TicketsComMensagens>();
 	        List<Mensagem> mensagens = new ArrayList<Mensagem>();
