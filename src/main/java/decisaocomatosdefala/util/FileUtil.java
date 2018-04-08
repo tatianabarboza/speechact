@@ -5,14 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
-import decisaocomatosdefala.execucao.AtosDeFalaDecisao;
 import decisaocomatosdefala.model.Impressao;
 import decisaocomatosdefala.model.Mensagem;
 import decisaocomatosdefala.model.PontoDecisao;
