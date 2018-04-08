@@ -24,7 +24,6 @@ import decisaocomatosdefala.tickets.TicketsHelper;
 public class FileUtil {
 	
 	public static File loadFileFromResource(String caminho) {
-		InputStream fstream = AtosDeFalaDecisao.class.getResourceAsStream(File.separator + caminho);
 		try {
 			File tempFile = File.createTempFile("temp-"+ caminho.split("\\.")[0], caminho.split("\\.")[1]);
 			tempFile.deleteOnExit();
