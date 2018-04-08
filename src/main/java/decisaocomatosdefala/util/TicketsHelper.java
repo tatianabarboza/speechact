@@ -41,7 +41,7 @@ public class TicketsHelper {
 	        while ((linha = br.readLine()) != null) {
 	            try {
 	                colunas = linha.split(csvDivisor);
-	                if (!colunas[1].equals(ticket.getTicketId().toString())) {
+	                if (colunas.length > 1 && !colunas[1].equals(ticket.getTicketId().toString())) {
 	                    ticket.setMensagens(mensagens);
 	                    tickets.add(ticket);
 	                    ticket = new TicketsComMensagens();
@@ -50,8 +50,10 @@ public class TicketsHelper {
 	                }
 	                mensagem = new Mensagem();
 	                mensagem.setMsgId((colunas[0]));
-	                mensagem.setMensagem(StopWords.removendoCaracter(colunas[2]));
-	                mensagens.add(mensagem);
+	                if(colunas.length > 2){
+	                		mensagem.setMensagem(StopWords.removendoCaracter(colunas[2]));
+	                		mensagens.add(mensagem);
+	                }
 	            } catch (Exception e) {
 	            		System.out.println("Erro ao recuperar tickets do arquivo: " + e.getMessage());
 	            }
