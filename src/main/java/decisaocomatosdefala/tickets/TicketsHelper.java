@@ -1,4 +1,4 @@
-package decisaocomatosdefala.util;
+package decisaocomatosdefala.tickets;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

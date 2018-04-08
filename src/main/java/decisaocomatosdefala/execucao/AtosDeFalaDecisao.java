@@ -26,9 +26,9 @@ import decisaocomatosdefala.model.PontoDecisao;
 import decisaocomatosdefala.model.TicketsComMensagens;
 import decisaocomatosdefala.model.Verbo;
 import decisaocomatosdefala.nlp.StopWords;
+import decisaocomatosdefala.tickets.TicketsHelper;
 import decisaocomatosdefala.util.DateUtil;
 import decisaocomatosdefala.util.FileUtil;
-import decisaocomatosdefala.util.TicketsHelper;
 
 /**
  *

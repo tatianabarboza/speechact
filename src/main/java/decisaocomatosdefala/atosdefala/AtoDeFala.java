@@ -12,8 +12,7 @@ import decisaocomatosdefala.model.Modelo;
 import decisaocomatosdefala.nlp.InfinitivoHelper;
 import decisaocomatosdefala.util.FileUtil;
 
-public class AtoDeFala {
-
+public class AtoDeFala implements IAtoDeFala {
 
     public static Boolean atoDeFalaInformative(String mensagem, String[] informatives) {
         POSModel model = new POSModelLoader().load(FileUtil.loadFileFromResource("arquivos"+  File.separator +   "en-pos-maxent.bin" ));
