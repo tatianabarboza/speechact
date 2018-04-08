@@ -5,7 +5,6 @@
  */
 package decisaocomatosdefala.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +14,11 @@ import java.util.List;
  */
 public class Mensagem {
 
+    private String msgId;
+    private String mensagem;
+    private Date datahora;
+    private List<Verbo> verbos;
+	
     /**
      * @return the datahora
      */
@@ -73,8 +77,4 @@ public class Mensagem {
         this.mensagem = mensagem;
     }
     
-    private String msgId;
-    private String mensagem;
-    private Date datahora;
-    private List<Verbo> verbos;
 }

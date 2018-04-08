@@ -13,7 +13,20 @@ import java.util.List;
  */
 public class TicketsComMensagens {
 
-    /**
+
+    private String ticketId;
+    private List<Mensagem> mensagens;
+    
+    public TicketsComMensagens() {
+	}
+	
+    public TicketsComMensagens(String ticketId, List<Mensagem> mensagens) {
+		super();
+		this.ticketId = ticketId;
+		this.mensagens = mensagens;
+	}
+
+	/**
      * @return the ticketId
      */
     public String getTicketId() {
@@ -41,6 +54,4 @@ public class TicketsComMensagens {
         this.mensagens = mensagens;
     }
     
-    private String ticketId;
-    private List<Mensagem> mensagens;
 }
