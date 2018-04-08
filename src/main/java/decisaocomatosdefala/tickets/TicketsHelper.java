@@ -18,13 +18,13 @@ import decisaocomatosdefala.nlp.StopWords;
 
 public class TicketsHelper {
 
-	 private String csvDivisor = ";";
+	 private final static String CSV_DIVISOR = ";";
 
 	 public List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
 		 	BufferedReader br = getBufferedReaderFrom(caminho);
 	        String linha = br.readLine();
 
-	        String[] colunas = linha.split(csvDivisor);
+	        String[] colunas = linha.split(CSV_DIVISOR);
 	        TicketsComMensagens ticket = new TicketsComMensagens();
 	        ticket.setTicketId((colunas[1]));
 	        Mensagem mensagem = new Mensagem();
@@ -32,10 +32,11 @@ public class TicketsHelper {
 	        mensagem.setMensagem(StopWords.removendoCaracter(colunas[2]));
 	        List<Mensagem> mensagens = new ArrayList<Mensagem>();
 	        mensagens.add(mensagem);
+	        
 	        List<TicketsComMensagens> tickets = new ArrayList<TicketsComMensagens>();
 	        while ((linha = br.readLine()) != null) {
 	            try {
-	                colunas = linha.split(csvDivisor);
+	                colunas = linha.split(CSV_DIVISOR);
 	                if (colunas.length > 1 && !colunas[1].equals(ticket.getTicketId().toString())) {
 	                    ticket.setMensagens(mensagens);
 	                    tickets.add(ticket);
