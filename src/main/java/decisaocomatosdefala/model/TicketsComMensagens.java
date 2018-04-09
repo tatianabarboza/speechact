@@ -5,6 +5,7 @@
  */
 package decisaocomatosdefala.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,10 +21,9 @@ public class TicketsComMensagens {
     public TicketsComMensagens() {
 	}
 	
-    public TicketsComMensagens(String ticketId, List<Mensagem> mensagens) {
+    public TicketsComMensagens(String ticketId) {
 		super();
 		this.ticketId = ticketId;
-		this.mensagens = mensagens;
 	}
 
 	/**
@@ -52,6 +52,13 @@ public class TicketsComMensagens {
      */
     public void setMensagens(List<Mensagem> mensagens) {
         this.mensagens = mensagens;
+    }
+    
+    public void adicionarMensagem(Mensagem mensagem){
+    		if(getMensagens() == null){
+    			setMensagens(new ArrayList<Mensagem>());
+    		}
+    		getMensagens().add(mensagem);
     }
     
 }

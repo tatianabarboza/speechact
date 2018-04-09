@@ -19,7 +19,17 @@ public class Mensagem {
     private Date datahora;
     private List<Verbo> verbos;
 	
-    /**
+    
+    public Mensagem() {
+	}
+    
+    public Mensagem(String msgId, String mensagem) {
+		super();
+		this.msgId = msgId;
+		this.mensagem = mensagem;
+	}
+
+	/**
      * @return the datahora
      */
     public Date getDatahora() {

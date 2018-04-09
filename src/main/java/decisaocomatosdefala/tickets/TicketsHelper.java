@@ -23,13 +23,10 @@ public class TicketsHelper {
 	 public List<TicketsComMensagens> leituraDoArquivoCSV(String caminho) throws FileNotFoundException, IOException, ParseException {
 		 	BufferedReader br = getBufferedReaderFrom(caminho);
 	        String linha = br.readLine();
-
 	        String[] colunas = linha.split(CSV_DIVISOR);
-	        TicketsComMensagens ticket = new TicketsComMensagens();
-	        ticket.setTicketId((colunas[1]));
-	        Mensagem mensagem = new Mensagem();
-	        mensagem.setMsgId((colunas[0]));
-	        mensagem.setMensagem(StopWords.removendoCaracter(colunas[2]));
+
+	        TicketsComMensagens ticket = new TicketsComMensagens((colunas[1]));
+	        Mensagem mensagem = new Mensagem((colunas[0]), StopWords.removendoCaracter(colunas[2]));
 	        List<Mensagem> mensagens = new ArrayList<Mensagem>();
 	        mensagens.add(mensagem);
 	        
