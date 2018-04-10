@@ -21,18 +21,7 @@ import decisaocomatosdefala.tickets.TicketsHelper;
 
 public class FileUtil {
 	
-	public static File loadFileFromResource(String caminho) {
-		try {
-			File tempFile = File.createTempFile("temp-"+ caminho.split("\\.")[0], caminho.split("\\.")[1]);
-			tempFile.deleteOnExit();
-		    FileOutputStream out = new FileOutputStream(tempFile);
-		    IOUtils.copy(FileUtil.class.getResourceAsStream(File.separator + caminho), out);
-		    return tempFile;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 	
 	 public static void execucaoDoArquivo(String caminho) throws IOException, FileNotFoundException, ParseException {
 
@@ -49,27 +38,6 @@ public class FileUtil {
 
 	    }
 
-	private static void imprimeNaConsoleENoArquivo(List<Impressao> decisoesEncontradas,
-													List<Impressao> mensagensAnteriores) throws IOException {
-		FileWriter writer = new FileWriter(FileUtil.loadFileFromResource("arquivos"+  File.separator +   "resultadoLog.csv"));
-		System.out.println("PONTOS DE DECISÃO");
-		System.out.println("==========================================================================");
-		for (Impressao imp : decisoesEncontradas) {
-		    System.out.println(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getVerbo() + ";" + imp.getTipoVerbo() + ";" + imp.getMensagem());
-		    writer.append(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getVerbo() + ";" + imp.getTipoVerbo() + ";" + imp.getMensagem() + "\";");
-		    writer.append(System.lineSeparator());
-		}
-		System.out.println("Mensagens anteriores =" + mensagensAnteriores.size());
-		System.out.println("==========================================================================");
-		for (Impressao imp : mensagensAnteriores) {
-		    System.out.println(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getTipoVerbo() + ";" + imp.getVerbo() + ";" + imp.getMensagem());
-		    writer.append(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getTipoVerbo() + ";" + imp.getVerbo() + ";" + imp.getMensagem() + "\";");
-		    writer.append(System.lineSeparator());
-		}
-		System.out.println("==========================================================================");
-		writer.flush();
-		writer.close();
-	}
 
 	private static List<Impressao> listMensagensParaImpressao(List<TicketsComMensagens> ticketsComVerbos,
 																List<Impressao> decisoesEncontradas) {
@@ -127,28 +95,72 @@ public class FileUtil {
 									throws FileNotFoundException, IOException, ParseException {
         //Leitura do Arquivo
 		List<TicketsComMensagens> tickets = new TicketsHelper().leituraDoArquivoCSV(caminho);
+		
+		if (tickets.isEmpty() == true)
+			return new ArrayList<TicketsComMensagens>();
+		
+		List<TicketsComMensagens> ticketLimpos = limpandoMensagens(tickets);
+		return ticketLimpos;
+	}
+
+
+	private static List<TicketsComMensagens> limpandoMensagens(List<TicketsComMensagens> tickets) {
 		//Limpeza das Mensagens
 		List<TicketsComMensagens> ticketLimpos = new ArrayList<TicketsComMensagens>();
 		List<Mensagem> mensagens = new ArrayList<Mensagem>();
 		TicketsComMensagens ticketLimpo = null;
-		if (tickets.isEmpty() == false) {
-		    for (TicketsComMensagens ticket : tickets) {
-		        ticketLimpo = new TicketsComMensagens();
-		        ticketLimpo = ticket;
-		        Mensagem mensagemLimpa = null;
-		        for (Mensagem msg : ticket.getMensagens()) {
-		            mensagemLimpa = new Mensagem();
-		            mensagemLimpa = msg;
-		            mensagemLimpa.setMensagem(StopWords.removendoCaracter(mensagemLimpa.getMensagem()));
-		            mensagens.add(mensagemLimpa);
-		        }
-		        ticketLimpo.setMensagens(mensagens);
-		        ticketLimpos.add(ticketLimpo);
+	    for (TicketsComMensagens ticket : tickets) {
+	        ticketLimpo = new TicketsComMensagens();
+	        ticketLimpo = ticket;
+	        Mensagem mensagemLimpa = null;
+	        for (Mensagem msg : ticket.getMensagens()) {
+	            mensagemLimpa = new Mensagem();
+	            mensagemLimpa = msg;
+	            mensagemLimpa.setMensagem(StopWords.removendoCaracter(mensagemLimpa.getMensagem()));
+	            mensagens.add(mensagemLimpa);
+	        }
+	        ticketLimpo.setMensagens(mensagens);
+	        ticketLimpos.add(ticketLimpo);
 
-		        mensagens = new ArrayList<Mensagem>();
-		    }
-		}
+	        mensagens = new ArrayList<Mensagem>();
+	    }
 		return ticketLimpos;
+	}
+	
+	public static File loadFileFromResource(String caminho) {
+		try {
+			File tempFile = File.createTempFile("temp-"+ caminho.split("\\.")[0], caminho.split("\\.")[1]);
+			tempFile.deleteOnExit();
+		    FileOutputStream out = new FileOutputStream(tempFile);
+		    IOUtils.copy(FileUtil.class.getResourceAsStream(File.separator + caminho), out);
+		    return tempFile;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+
+	private static void imprimeNaConsoleENoArquivo(List<Impressao> decisoesEncontradas,
+													List<Impressao> mensagensAnteriores) throws IOException {
+		FileWriter writer = new FileWriter(FileUtil.loadFileFromResource("arquivos"+  File.separator +   "resultadoLog.csv"));
+		System.out.println("PONTOS DE DECISÃO");
+		System.out.println("==========================================================================");
+		for (Impressao imp : decisoesEncontradas) {
+		    System.out.println(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getVerbo() + ";" + imp.getTipoVerbo() + ";" + imp.getMensagem());
+		    writer.append(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getVerbo() + ";" + imp.getTipoVerbo() + ";" + imp.getMensagem() + "\";");
+		    writer.append(System.lineSeparator());
+		}
+		System.out.println("Mensagens anteriores =" + mensagensAnteriores.size());
+		System.out.println("==========================================================================");
+		for (Impressao imp : mensagensAnteriores) {
+		    System.out.println(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getTipoVerbo() + ";" + imp.getVerbo() + ";" + imp.getMensagem());
+		    writer.append(imp.getTicketId() + ";" + imp.getMsgId() + ";" + imp.getTipoVerbo() + ";" + imp.getVerbo() + ";" + imp.getMensagem() + "\";");
+		    writer.append(System.lineSeparator());
+		}
+		System.out.println("==========================================================================");
+		writer.flush();
+		writer.close();
 	}
 	
 }

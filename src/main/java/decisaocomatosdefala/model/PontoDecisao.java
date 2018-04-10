@@ -41,12 +41,16 @@ public class PontoDecisao {
         List<Mensagem> mensagensComVerbos = new ArrayList<>();
         Mensagem msgNovo = null;
         TicketsComMensagens ticketNovo = null;
+        
         for (TicketsComMensagens ticket : tickets) {
             ticketNovo = new TicketsComMensagens();
             ticketNovo.setTicketId(ticket.getTicketId());
+            
             for (Mensagem msg : ticket.getMensagens()) {
                 List<Verbo> verbos = new ArrayList<>();
+                
                 verbos = buscandoVerbos(msg.getMensagem());
+                
                 msgNovo = new Mensagem();
                 msgNovo.setMensagem(msg.getMensagem());
                 msgNovo.setMsgId(msg.getMsgId());
