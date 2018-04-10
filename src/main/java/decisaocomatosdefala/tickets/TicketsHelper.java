@@ -31,6 +31,7 @@ public class TicketsHelper {
 	        mensagens.add(mensagem);
 	        
 	        List<TicketsComMensagens> tickets = new ArrayList<TicketsComMensagens>();
+	        
 	        while ((linha = br.readLine()) != null) {
 	            try {
 	                colunas = linha.split(CSV_DIVISOR);
