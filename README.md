@@ -29,6 +29,20 @@ Procedure for application:
 4) There is a file with examples of events log. (speechact/arquivos/LogMessage.csv).This file was built for you test this application.
 5) The main file is AtosDeFalaDecisao.java. You need execute this application starting from this file. 
  
+ 
+Updated plataform:
+Java 1.8
+Maven
+IDE free
+1) Clone this application
+2) build: mvn clean install
+3) From any terminal with maven in path you can run:
+java -cp target/speechact-0.0.1-SNAPSHOT.jar:<<YOUR-USER-PATH>>/.m2/repository/jaws/jaws-bin/1.0.0/jaws-bin-1.0.0.jar:<<YOUR-USER-PATH>>/.m2/repository/opennlp/opennlp-tools/1.8.4/opennlp-tools-1.8.4.jar:<<YOUR-USER-PATH>>/.m2/repository/commons-io/commons-io/2.6/commons-io-2.6.jar:. decisaocomatosdefala.execucao.AtosDeFalaDecisao
+
+Obs.: Change <<YOUR-USER-PATH>> to your user path like /Users/edveloso
+  
+ 
+ 
 References:
 
 [1] Campos, J., Richetti,P., Baião, F.A., Santoro, F.M.:"Discovering business rules in Knowledge Intensive Process through decision mining experimental study." In: 5th International Workshop on Declarative/Decision/Hybrid Mining & Modeling for Business Processes (DeHMiMoP’17). [2017]
